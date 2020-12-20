@@ -4,6 +4,8 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import java.util.Objects;
+
 @Entity(tableName = "note_table")
 public class Note {
     @PrimaryKey(autoGenerate = true)
@@ -49,5 +51,31 @@ public class Note {
 
     public void setPriority(int priority) {
         this.priority = priority;
+    }
+
+    @Override
+    public String toString() {
+        return "Note{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", priority=" + priority +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Note note = (Note) o;
+        return id == note.id &&
+                priority == note.priority &&
+                title.equals(note.title) &&
+                description.equals(note.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, description, priority);
     }
 }
